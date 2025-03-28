@@ -116,7 +116,6 @@ export const RecommendedVideos = () => {
     <div className="w-full lg:w-1/4 hidden lg:flex flex-col space-y-4 mt-4 lg:mt-0 lg:ml-4">
       {videos.map((video) => (
         <div key={video.id} className="flex space-x-2">
-          {/* Thumbnail */}
           <div className="w-2/5 relative">
             <img
               src={video.thumbnail}
@@ -125,7 +124,6 @@ export const RecommendedVideos = () => {
             />
           </div>
 
-          {/* Video Details */}
           <div className="w-3/5 flex flex-col">
             <h3 className="text-sm font-medium">{video.title}</h3>
             <p className="text-xs text-gray-500">{video.creator}</p>
