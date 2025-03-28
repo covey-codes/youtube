@@ -23,11 +23,11 @@ const IconsCarousel = () => {
   ];
 
   return (
-    <div className="flex space-x-4 overflow-x-auto no-scrollbar p-2">
+    <div className="flex space-x-4 overflow-x-auto hide-scrollbar p-2">
       {actions.map((action, index) => (
         <button
           key={index}
-          className="flex items-center space-x-2 bg-gray-200 px-4 py-2 rounded-full hover:bg-gray-300 transition"
+          className="flex items-center space-x-4 bg-gray-200 px-4 py-2 rounded-full hover:bg-gray-300 transition"
         >
           {action.icon}
           <span className="text-sm font-medium">{action.text}</span>

@@ -1,35 +1,6 @@
 import React, { useState, useRef } from "react";
 
-const commentsData = [
-  {
-    id: 1,
-    username: "AlexJohnson",
-    userImage: "", // Placeholder for profile picture
-    comment: "This is an amazing feature! Looking forward to more updates.",
-    timePosted: "2 hours ago",
-  },
-  {
-    id: 2,
-    username: "SophieMiller",
-    userImage: "", // Placeholder for profile picture
-    comment: "Great work! The UI is very clean and easy to navigate.",
-    timePosted: "30 minutes ago",
-  },
-  {
-    id: 3,
-    username: "TechGuru99",
-    userImage: "", // Placeholder for profile picture
-    comment: "I love how smooth everything runs. Keep up the great work!",
-    timePosted: "5 hours ago",
-  },
-  {
-    id: 4,
-    username: "Liam_Writes",
-    userImage: "", // Placeholder for profile picture
-    comment: "Awesome! Will there be any new features coming soon?",
-    timePosted: "1 day ago",
-  },
-];
+const commentsData = [];
 
 const CommentSection = () => {
   const [showAll, setShowAll] = useState(false);
@@ -37,58 +8,78 @@ const CommentSection = () => {
   const [newComment, setNewComment] = useState("");
   const inputRef = useRef(null);
 
-  const handleAddComment = () => {
+  const handleAddComment = (e) => {
+    e.preventDefault(); 
     if (newComment.trim() === "") return;
 
     const newCommentData = {
-      id: comments.length + 1,
-      username: "Anonymous", // Default username for now
-      userImage: "", // Placeholder for profile picture
-      comment: newComment,
+      id: Date.now(),
+      username: "Anonymous",
+      userImage: "",
+      comment: newComment.trim(),
       timePosted: "Just now",
     };
 
     setComments([newCommentData, ...comments]);
     setNewComment("");
-
-    // Focus back on input after adding a comment
     inputRef.current?.focus();
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleAddComment(e);
+    }
+  };
+
   return (
-    <div>
+    <div className="comment-section">
       <div>
         {comments
           .slice(0, showAll ? comments.length : 1)
           .map((comment, index) => (
             <div
               key={comment.id}
+              className="comment-card"
               style={{
                 border: "1px solid #ddd",
                 margin: "10px",
-                borderRadius: "30px",
+                borderRadius: "10px",
                 padding: "15px",
                 cursor: !showAll ? "pointer" : "default",
                 position: "relative",
+                backgroundColor: "#fff",
               }}
-              onClick={() => !showAll && setShowAll(true)}
+              onClick={!showAll ? () => setShowAll(true) : undefined}
             >
               {!showAll ? (
                 <strong>Comments ({comments.length})</strong>
               ) : (
-                <div>
-                  <strong>{comment.username}</strong>
-                  <p style={{ fontSize: "12px", color: "#666" }}>
-                    {comment.timePosted}
-                  </p>
+                <div className="comment-header">
+                  <div>
+                    <strong>{comment.username}</strong>
+                    <p
+                      style={{
+                        fontSize: "12px",
+                        color: "#666",
+                        margin: "2px 0 0 0",
+                      }}
+                    >
+                      {comment.timePosted}
+                    </p>
+                  </div>
                 </div>
               )}
 
-              <p style={{ marginTop: "10px" }}>{comment.comment}</p>
+              <p style={{ marginTop: "10px", marginBottom: "0" }}>
+                {comment.comment}
+              </p>
 
               {showAll && index === 0 && (
                 <button
-                  onClick={() => setShowAll(false)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowAll(false);
+                  }}
                   style={{
                     position: "absolute",
                     top: "10px",
@@ -97,7 +88,9 @@ const CommentSection = () => {
                     border: "none",
                     fontSize: "16px",
                     cursor: "pointer",
+                    color: "#666",
                   }}
+                  aria-label="Close comments"
                 >
                   ✖
                 </button>
@@ -105,14 +98,17 @@ const CommentSection = () => {
             </div>
           ))}
 
-        {/* Input box - Only visible when comments are open */}
         {showAll && (
-          <div style={{ margin: "10px", padding: "10px" }}>
+          <form
+            onSubmit={handleAddComment}
+            style={{ margin: "10px", padding: "10px" }}
+          >
             <input
               ref={inputRef}
               type="text"
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
+              onKeyPress={handleKeyPress}
               placeholder="Add a comment..."
               style={{
                 width: "80%",
@@ -120,10 +116,11 @@ const CommentSection = () => {
                 borderRadius: "20px",
                 border: "1px solid #ddd",
                 outline: "none",
+                boxSizing: "border-box",
               }}
             />
             <button
-              onClick={handleAddComment}
+              type="submit"
               style={{
                 marginLeft: "10px",
                 padding: "10px 15px",
@@ -132,11 +129,20 @@ const CommentSection = () => {
                 backgroundColor: "#007bff",
                 color: "#fff",
                 cursor: "pointer",
+                transition: "background-color 0.2s",
               }}
+              onMouseOver={(e) =>
+                ((e.target as HTMLButtonElement).style.backgroundColor =
+                  "#0056b3")
+              }
+              onMouseOut={(e) =>
+                ((e.target as HTMLButtonElement).style.backgroundColor =
+                  "#007bff")
+              }
             >
               Post
             </button>
-          </div>
+          </form>
         )}
       </div>
     </div>
