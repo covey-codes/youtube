@@ -9,7 +9,7 @@ const ReactConference = () => {
         className="w-10 h-10 rounded-full"
       />
 
-      <h2 className="text-[rem] text-nowrap font-semibold">
+      <h2 className="text-[0.9rem] text-nowrap font-semibold">
         React Conferences by G...
       </h2>
       <p className="text-[0.7rem] text-gray-500">27.2K </p>

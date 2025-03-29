@@ -1,5 +1,5 @@
 import React from "react";
-import { RecommendedVideos } from "../constants/RecommendedVideos";
+import { RecommendedVideos } from "./RecommendedVideos";
 
 export const HeroSection = () => {
   return (
