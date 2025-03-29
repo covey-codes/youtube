@@ -1,150 +1,102 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
+import { Comment } from "../types/Comment";
+import { commentsData } from "../data/commentsData";
+import { CommentCard } from "./CommentCard";
+import { CommentInput } from "./CommentInput";
 
-const commentsData = [];
-
-const CommentSection = () => {
+export const CommentSection: React.FC = () => {
   const [showAll, setShowAll] = useState(false);
-  const [comments, setComments] = useState(commentsData);
-  const [newComment, setNewComment] = useState("");
-  const inputRef = useRef(null);
+  const [comments, setComments] = useState<Comment[]>(commentsData);
+  const [sortBy, setSortBy] = useState<"top" | "newest">("newest");
 
-  const handleAddComment = (e) => {
-    e.preventDefault(); 
-    if (newComment.trim() === "") return;
-
-    const newCommentData = {
+  const addComment = (commentText: string) => {
+    const newComment: Comment = {
       id: Date.now(),
       username: "Anonymous",
       userImage: "",
-      comment: newComment.trim(),
+      comment: commentText,
       timePosted: "Just now",
     };
-
-    setComments([newCommentData, ...comments]);
-    setNewComment("");
-    inputRef.current?.focus();
+    setComments([newComment, ...comments]);
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      handleAddComment(e);
+  const sortedComments = [...comments].sort((a, b) => {
+    if (sortBy === "newest") {
+      return b.id - a.id;
     }
-  };
+    return a.id - b.id;
+  });
 
   return (
     <div className="comment-section">
-      <div>
-        {comments
-          .slice(0, showAll ? comments.length : 1)
-          .map((comment, index) => (
-            <div
-              key={comment.id}
-              className="comment-card"
-              style={{
-                border: "1px solid #ddd",
-                margin: "10px",
-                borderRadius: "10px",
-                padding: "15px",
-                cursor: !showAll ? "pointer" : "default",
-                position: "relative",
-                backgroundColor: "#fff",
-              }}
-              onClick={!showAll ? () => setShowAll(true) : undefined}
-            >
-              {!showAll ? (
-                <strong>Comments ({comments.length})</strong>
-              ) : (
-                <div className="comment-header">
-                  <div>
-                    <strong>{comment.username}</strong>
-                    <p
-                      style={{
-                        fontSize: "12px",
-                        color: "#666",
-                        margin: "2px 0 0 0",
-                      }}
-                    >
-                      {comment.timePosted}
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              <p style={{ marginTop: "10px", marginBottom: "0" }}>
-                {comment.comment}
-              </p>
-
-              {showAll && index === 0 && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowAll(false);
-                  }}
-                  style={{
-                    position: "absolute",
-                    top: "10px",
-                    right: "10px",
-                    background: "none",
-                    border: "none",
-                    fontSize: "16px",
-                    cursor: "pointer",
-                    color: "#666",
-                  }}
-                  aria-label="Close comments"
-                >
-                  ✖
-                </button>
-              )}
-            </div>
-          ))}
-
-        {showAll && (
-          <form
-            onSubmit={handleAddComment}
-            style={{ margin: "10px", padding: "10px" }}
+      {showAll && (
+        <div style={{ margin: "10px" }}>
+          <button
+            onClick={() => setSortBy("top")}
+            style={{
+              padding: "5px 10px",
+              marginRight: "10px",
+              backgroundColor: sortBy === "top" ? "#007bff" : "#ddd",
+              color: sortBy === "top" ? "#fff" : "#000",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
           >
-            <input
-              ref={inputRef}
-              type="text"
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Add a comment..."
-              style={{
-                width: "80%",
-                padding: "10px",
-                borderRadius: "20px",
-                border: "1px solid #ddd",
-                outline: "none",
-                boxSizing: "border-box",
-              }}
+            Top
+          </button>
+          <button
+            onClick={() => setSortBy("newest")}
+            style={{
+              padding: "5px 10px",
+              backgroundColor: sortBy === "newest" ? "#007bff" : "#ddd",
+              color: sortBy === "newest" ? "#fff" : "#000",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            Newest
+          </button>
+        </div>
+      )}
+
+      {(!showAll ? comments.slice(0, 1) : sortedComments).map(
+        (comment, index) => (
+          <div key={comment.id} style={{ position: "relative" }}>
+            <CommentCard
+              comment={comment}
+              isPreview={!showAll}
+              totalComments={comments.length}
+              onClick={!showAll ? () => setShowAll(true) : undefined}
             />
-            <button
-              type="submit"
-              style={{
-                marginLeft: "10px",
-                padding: "10px 15px",
-                borderRadius: "20px",
-                border: "none",
-                backgroundColor: "#007bff",
-                color: "#fff",
-                cursor: "pointer",
-                transition: "background-color 0.2s",
-              }}
-              onMouseOver={(e) =>
-                ((e.target as HTMLButtonElement).style.backgroundColor =
-                  "#0056b3")
-              }
-              onMouseOut={(e) =>
-                ((e.target as HTMLButtonElement).style.backgroundColor =
-                  "#007bff")
-              }
-            >
-              Post
-            </button>
-          </form>
-        )}
-      </div>
+            {showAll && index === 0 && (
+              <button
+                onClick={() => setShowAll(false)}
+                style={{
+                  position: "absolute",
+                  top: "20px",
+                  right: "20px",
+                  background: "none",
+                  border: "none",
+                  fontSize: "16px",
+                  cursor: "pointer",
+                  color: "#666",
+                }}
+                aria-label="Close comments"
+              >
+                ✖
+              </button>
+            )}
+          </div>
+        )
+      )}
+
+      {showAll && (
+        <div style={{ margin: "10px" }}>
+          <CommentInput onAddComment={addComment} />
+        </div>
+      )}
     </div>
   );
 };
