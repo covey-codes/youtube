@@ -28,7 +28,7 @@ export const CommentSection: React.FC = () => {
   });
 
   return (
-    <div className="comment-section">
+    <div className="comment-section lg:ml-[85px]">
       {showAll && (
         <div style={{ margin: "10px" }}>
           <button

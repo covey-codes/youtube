@@ -3,7 +3,7 @@ import { RecommendedVideos } from "./RecommendedVideos";
 
 export const HeroSection = () => {
   return (
-    <div className="flex flex-col lg:flex-row w-full lg:p-10">
+    <div className="flex flex-col lg:flex-row w-full lg:p-10 lg:mt-[-45px]">
       <div className="w-full ">
         <div className="relative w-full h-0 pb-[56.25%]">
           <iframe

@@ -11,8 +11,10 @@ function App() {
     <>
       <HeroSection />
       <ReactQuery />
-      <ReactConference />
-      <IconsCarousel />
+      <div className="flex flex-col sm:flex-row lg:gap-30">
+        <ReactConference />
+        <IconsCarousel />
+      </div>
       <CommentSection />
       <GitNationStore />
     </>
