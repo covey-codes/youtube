@@ -4,7 +4,7 @@ import { ShoppingBag } from "lucide-react";
 const ReactQuery = () => {
   return (
     <div className="">
-      <h1 className="text-[1.29rem] font-semibold m-2 pt-4">
+      <h1 className="text-[1.2rem] font-semibold m-2 pt-4">
         React Query Exposed by its Maintainer
       </h1>
       <div className="flex items-center text-gray-600 text-sm m-2">

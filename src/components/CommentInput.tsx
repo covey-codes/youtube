@@ -18,7 +18,7 @@ export const CommentInput: React.FC<CommentInputProps> = ({ onAddComment }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ margin: "10px", padding: "10px" }}>
+    <form onSubmit={handleSubmit} style={{ margin: "5px", padding: "10px" }}>
       <input
         ref={inputRef}
         type="text"
@@ -38,7 +38,7 @@ export const CommentInput: React.FC<CommentInputProps> = ({ onAddComment }) => {
         type="submit"
         className="post-button"
         style={{
-          marginLeft: "10px",
+          margin: "1px",
           padding: "10px 15px",
           borderRadius: "20px",
           border: "none",
