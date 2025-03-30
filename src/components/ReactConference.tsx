@@ -2,15 +2,15 @@ import React from "react";
 
 const ReactConference = () => {
   return (
-    <div className="flex items-center p-1 space-x-4 mt-4">
+    <div className="flex items-center lg:ml-[85px] p-1 space-x-4 mt-4">
       <img
         src="/valery.jpg"
         alt="Channel Logo"
-        className="w-10 h-10 rounded-full"
+        className="w-10 lg:w-15 h-10 lg:h-15 rounded-full"
       />
 
-      <h2 className="text-[0.8rem] text-nowrap font-semibold">
-        React Conferences by G...
+      <h2 className="text-[0.8rem] font-semibold truncate max-w-[140px] lg:max-w-none lg:whitespace-nowrap">
+        React Conferences by GitNation
       </h2>
       <p className="text-[0.7rem] text-gray-500">27.2K </p>
 

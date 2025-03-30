@@ -22,10 +22,10 @@ const GitNationStore = () => {
     <div className="p-4">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-semibold">
+          <h1 className="text-[18.9px] font-semibold">
             React Conferences by GitNation store
           </h1>
-          <p className="text-sm">From Spring</p>
+          <p className="text-[10px]">From Spring</p>
         </div>
       </div>
 
