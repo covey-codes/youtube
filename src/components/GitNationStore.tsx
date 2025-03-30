@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ShoppingCart } from "lucide-react";
-import { merchData } from "../data/merchData";
+import { merchData } from "../constants/merchData";
 
 const GitNationStore = () => {
   const [imagesLoaded, setImagesLoaded] = useState(false);

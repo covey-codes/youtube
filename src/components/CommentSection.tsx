@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Comment } from "../types/Comment";
-import { commentsData } from "../data/commentsData";
+import { commentsData } from "../constants/commentsData";
 import { CommentCard } from "./CommentCard";
 import { CommentInput } from "./CommentInput";
 
