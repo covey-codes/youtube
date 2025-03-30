@@ -1,4 +1,5 @@
 // src/data/merchData.ts
+
 export const merchData = [
   {
     id: 1,

@@ -1,5 +1,5 @@
 import React from "react";
-import { Comment } from "../types/Comment";
+import { Comment } from "../types/section";
 
 interface CommentCardProps {
   comment: Comment;

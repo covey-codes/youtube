@@ -37,7 +37,6 @@ const IconsCarousel = () => {
     <div className="flex space-x-4 truncate max-w overflow-x-auto hide-scrollbar p-2">
       {likeDislikeBox}
 
-      {/* Show first 3 icons always, hide rest in "More" on lg screens */}
       {actions.slice(0, 3).map((action, index) => (
         <button
           key={index}
@@ -48,7 +47,6 @@ const IconsCarousel = () => {
         </button>
       ))}
 
-      {/* More button (only appears on lg screens) */}
       <div className="relative lg:block hidden">
         <button
           className="flex items-center bg-gray-200 px-4 py-2 rounded-full hover:bg-gray-300 transition"
@@ -57,7 +55,6 @@ const IconsCarousel = () => {
           <MoreHorizontal size={15} />
         </button>
 
-        {/* Hidden actions dropdown */}
         {showMore && (
           <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg p-2 w-32">
             {actions.slice(3).map((action, index) => (
@@ -73,7 +70,6 @@ const IconsCarousel = () => {
         )}
       </div>
 
-      {/* Show all actions normally on small screens */}
       <div className="lg:hidden flex space-x-4">
         {actions.slice(3).map((action, index) => (
           <button

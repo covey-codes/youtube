@@ -1,60 +1,41 @@
-import React, { useState } from "react";
-import { Comment } from "../types/Comment";
-import { commentsData } from "../constants/commentsData";
+// components/CommentSection.tsx
+import React from "react";
+import { useComments } from "../hooks/useComments";
 import { CommentCard } from "./CommentCard";
 import { CommentInput } from "./CommentInput";
 
 export const CommentSection: React.FC = () => {
-  const [showAll, setShowAll] = useState(false);
-  const [comments, setComments] = useState<Comment[]>(commentsData);
-  const [sortBy, setSortBy] = useState<"top" | "newest">("newest");
-
-  const addComment = (commentText: string) => {
-    const newComment: Comment = {
-      id: Date.now(),
-      username: "Anonymous",
-      userImage: "",
-      comment: commentText,
-      timePosted: "Just now",
-    };
-    setComments([newComment, ...comments]);
-  };
-
-  const sortedComments = [...comments].sort((a, b) => {
-    if (sortBy === "newest") {
-      return b.id - a.id;
-    }
-    return a.id - b.id;
-  });
+  const {
+    showAll,
+    setShowAll,
+    comments,
+    sortedComments,
+    sortBy,
+    setSortBy,
+    addComment,
+  } = useComments();
 
   return (
     <div className="comment-section lg:ml-[85px]">
       {showAll && (
-        <div style={{ margin: "10px" }}>
+        <div className="m-2 flex gap-2">
           <button
             onClick={() => setSortBy("top")}
-            style={{
-              padding: "5px 10px",
-              marginRight: "10px",
-              backgroundColor: sortBy === "top" ? "#007bff" : "#ddd",
-              color: sortBy === "top" ? "#fff" : "#000",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
+            className={`px-2 py-1 rounded ${
+              sortBy === "top"
+                ? "bg-blue-500 text-white"
+                : "bg-gray-300 text-black"
+            }`}
           >
             Top
           </button>
           <button
             onClick={() => setSortBy("newest")}
-            style={{
-              padding: "5px 10px",
-              backgroundColor: sortBy === "newest" ? "#007bff" : "#ddd",
-              color: sortBy === "newest" ? "#fff" : "#000",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
+            className={`px-2 py-1 rounded ${
+              sortBy === "newest"
+                ? "bg-blue-500 text-white"
+                : "bg-gray-300 text-black"
+            }`}
           >
             Newest
           </button>
@@ -63,7 +44,7 @@ export const CommentSection: React.FC = () => {
 
       {(!showAll ? comments.slice(0, 1) : sortedComments).map(
         (comment, index) => (
-          <div key={comment.id} style={{ position: "relative" }}>
+          <div key={comment.id} className="relative">
             <CommentCard
               comment={comment}
               isPreview={!showAll}
@@ -73,16 +54,7 @@ export const CommentSection: React.FC = () => {
             {showAll && index === 0 && (
               <button
                 onClick={() => setShowAll(false)}
-                style={{
-                  position: "absolute",
-                  top: "20px",
-                  right: "20px",
-                  background: "none",
-                  border: "none",
-                  fontSize: "16px",
-                  cursor: "pointer",
-                  color: "#666",
-                }}
+                className="absolute top-5 right-5 text-gray-600 text-lg border-none bg-none cursor-pointer"
                 aria-label="Close comments"
               >
                 ✖
@@ -93,7 +65,7 @@ export const CommentSection: React.FC = () => {
       )}
 
       {showAll && (
-        <div style={{ margin: "10px" }}>
+        <div className="m-2">
           <CommentInput onAddComment={addComment} />
         </div>
       )}

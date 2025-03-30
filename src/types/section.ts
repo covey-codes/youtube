@@ -5,3 +5,10 @@ export interface Comment {
   comment: string;
   timePosted: string;
 }
+export interface MerchItem {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  link: string;
+}

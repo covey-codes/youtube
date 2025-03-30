@@ -1,22 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { ShoppingCart } from "lucide-react";
 import { merchData } from "../constants/merchData";
+import { MerchItem } from "../types/section";
+import { useImagesLoaded } from "../hooks/useImagesLoaded";
 
-const GitNationStore = () => {
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-
-  useEffect(() => {
-    const imagePromises = merchData.map(
-      (item) =>
-        new Promise((resolve) => {
-          const img = new Image();
-          img.src = item.image;
-          img.onload = resolve;
-          img.onerror = resolve;
-        })
-    );
-    Promise.all(imagePromises).then(() => setImagesLoaded(true));
-  }, []);
+const GitNationStore: React.FC = () => {
+  const imagesLoaded = useImagesLoaded(merchData.map((item) => item.image));
 
   return (
     <div className="p-4 lg:ml-[85px]">
@@ -31,7 +20,7 @@ const GitNationStore = () => {
 
       <div className="mt-4">
         <div className="flex space-x-4 overflow-x-auto hide-scrollbar pb-4">
-          {merchData.map((item) => (
+          {merchData.map((item: MerchItem) => (
             <div
               key={item.id}
               className="flex-shrink-0 w-40 lg:w-80 text-center"
