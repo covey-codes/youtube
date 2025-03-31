@@ -1,4 +1,3 @@
-// hooks/useImagesLoaded.ts
 import { useState, useEffect } from "react";
 
 export const useImagesLoaded = (images: string[]): boolean => {

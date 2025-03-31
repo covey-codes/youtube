@@ -1,4 +1,3 @@
-// hooks/useComments.ts
 import { useState } from "react";
 import { Comment } from "../types/section";
 import { commentsData } from "../constants/commentsData";
