@@ -1,4 +1,3 @@
-// components/CommentSection.tsx
 import React from "react";
 import { useComments } from "../hooks/useComments";
 import { CommentCard } from "./CommentCard";

@@ -1,4 +1,3 @@
-import React from "react";
 import { RecommendedVideos } from "./RecommendedVideos";
 
 export const HeroSection = () => {
