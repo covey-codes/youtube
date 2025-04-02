@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   ThumbsUp,
   ThumbsDown,
@@ -34,16 +34,18 @@ const IconsCarousel = () => {
   );
 
   return (
-    <div className="flex space-x-4 truncate max-w overflow-x-auto hide-scrollbar p-2">
+    <div className="flex space-x-4 truncate max-w overflow-x-auto hide-scrollbar p-5">
       {likeDislikeBox}
 
       {actions.slice(0, 3).map((action, index) => (
         <button
           key={index}
-          className="flex items-center space-x-5 bg-gray-200 px-4 py-2 rounded-full hover:bg-gray-300 transition"
+          className="flex items-center space-x-5  bg-gray-200 px-4 sm:py-2 rounded-full hover:bg-gray-300 transition"
         >
           {action.icon}
-          <span className="text-sm font-medium">{action.text}</span>
+          <span className="text-sm flex-shrink-0 font-medium">
+            {action.text}
+          </span>
         </button>
       ))}
 
