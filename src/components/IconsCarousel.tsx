@@ -8,12 +8,9 @@ import {
   Bookmark,
   Flag,
   Share,
-  MoreHorizontal,
 } from "lucide-react";
 
 const IconsCarousel = () => {
-  const [showMore, setShowMore] = useState(false);
-
   const actions = [
     { icon: <Share size={15} />, text: "Share" },
     { icon: <Repeat size={15} />, text: "Remix" },
@@ -34,13 +31,13 @@ const IconsCarousel = () => {
   );
 
   return (
-    <div className="flex space-x-4 truncate max-w overflow-x-auto hide-scrollbar p-5">
+    <div className="flex space-x-4 overflow-x-auto hide-scrollbar p-5">
       {likeDislikeBox}
 
-      {actions.slice(0, 3).map((action, index) => (
+      {actions.map((action, index) => (
         <button
           key={index}
-          className="flex items-center space-x-5  bg-gray-200 px-4 sm:py-2 rounded-full hover:bg-gray-300 transition"
+          className="flex items-center space-x-2 bg-gray-200 px-4 py-2 rounded-full hover:bg-gray-300 transition"
         >
           {action.icon}
           <span className="text-sm flex-shrink-0 font-medium">
@@ -48,41 +45,6 @@ const IconsCarousel = () => {
           </span>
         </button>
       ))}
-
-      <div className="relative lg:block hidden">
-        <button
-          className="flex items-center bg-gray-200 px-4 py-2 rounded-full hover:bg-gray-300 transition"
-          onClick={() => setShowMore(!showMore)}
-        >
-          <MoreHorizontal size={15} />
-        </button>
-
-        {showMore && (
-          <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg p-2 w-32">
-            {actions.slice(3).map((action, index) => (
-              <button
-                key={index}
-                className="flex w-full items-center space-x-3 px-2 py-1 hover:bg-gray-100 rounded-md"
-              >
-                {action.icon}
-                <span className="text-sm font-medium">{action.text}</span>
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-
-      <div className="lg:hidden flex space-x-4">
-        {actions.slice(3).map((action, index) => (
-          <button
-            key={index}
-            className="flex items-center space-x-5 bg-gray-200 px-4 py-2 rounded-full hover:bg-gray-300 transition"
-          >
-            {action.icon}
-            <span className="text-sm font-medium">{action.text}</span>
-          </button>
-        ))}
-      </div>
     </div>
   );
 };
